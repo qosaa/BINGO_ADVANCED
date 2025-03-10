@@ -2,19 +2,31 @@
 #include <iomanip>
 
 void BingoCard::printCard() const {
-    cout << " B   I   N   G   O " << endl;
+    cout << "\n-----------------------------\n";
+    cout << "         BINGO CARD          \n";
+    cout << "-----------------------------\n";
+    cout << " B     I     N     G     O \n";
+    cout << "-----------------------------\n";
+
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 5; ++j) {
-            if (card[i][j] == 0) 
-                cout << " *   ";  // Espaço livre no centro
-            else if (marked[i][j]) 
-                cout << "[X]  ";  // Número marcado
-            else 
-                cout << setw(2) << card[i][j] << "   ";  // Número normal formatado
+            if (card[i][j] == 0) { //Espaço livre
+                cout << "  *  ";
+            }
+            else if (marked[i][j]) { //Números marcados
+                cout << "[X]  "; 
+            }
+            else {
+                if (card[i][j] < 10)
+                    cout << "  " << card[i][j] << "  ";
+                else
+                    cout << " " << card[i][j] << "  ";
+            }
         }
-        cout << endl;
+        cout << "\n";
     }
-    cout << "---------------------" << endl;
+
+    cout << "-----------------------------\n";
 }
 
 BingoCard::BingoCard(set<int>& availableNumbers) : card(5, vector<int>(5)), marked(5, vector<bool>(5, false)) {
@@ -30,11 +42,11 @@ BingoCard::BingoCard(set<int>& availableNumbers) : card(5, vector<int>(5)), mark
 
         for (int row = 0; row < 5; ++row) {
             if (row == 2 && col == 2) {
-                card[row][col] = 0; // Espaço livre
+                card[row][col] = 0; //Espaço livre
                 marked[row][col] = true;
             } else {
                 card[row][col] = columnNumbers[row];
-                availableNumbers.erase(columnNumbers[row]); // Remove para evitar repetição entre cartões
+                availableNumbers.erase(columnNumbers[row]); //Remove para evitar repetição entre cartões
             }
         }
     }
@@ -71,9 +83,9 @@ void BingoCard::printCard() const {
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 5; ++j) {
             if (card[i][j] == 0) 
-                cout << " *  ";  // Espaço livre no centro
+                cout << " *  ";  //Espaço livre no centro
             else if (marked[i][j]) 
-                cout << "[X] ";  // Número marcado
+                cout << "[X] ";  //Número marcado
             else 
                 cout << (card[i][j] < 10 ? " " : "") << card[i][j] << "  ";  // Número normal
         }
